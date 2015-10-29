@@ -1,8 +1,8 @@
-package stanford_algo_1
+package inversions
 
 import (
 	"fmt"
-	"github.com/odinsraven/stanford_algo_1"
+	"inversions"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -15,8 +15,8 @@ var (
 )
 
 func TestMergeSort(t *testing.T) {
-	r1 := stanford_algo_1.MergeSort(ex1)
-	r2 := stanford_algo_1.MergeSort(ex2)
+	r1 := inversions.MergeSort(ex1)
+	r2 := inversions.MergeSort(ex2)
 
 	fail := false
 	data := [][]int{r1, r2}

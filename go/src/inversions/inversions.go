@@ -1,4 +1,4 @@
-package stanford_algo_1
+package inversions
 
 import (
 	"math"
@@ -9,7 +9,7 @@ func MergeSort(data []int) []int {
 	if n < 2 {
 		return data
 	}
-	mid := getMid(n)
+	mid := getMedian(n)
 	left := MergeSort(data[:mid])
 	right := MergeSort(data[mid:])
 	return merge(left, right)
