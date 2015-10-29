@@ -9,35 +9,23 @@ import (
 	"testing"
 )
 
-var (
-	ex1 = []int{5, 3, 1, 4, 2}
-	ex2 = []int{8, 1, 3, 6, 5, 4, 2, 7}
-)
+func TestCountInversions(t *testing.T) {
 
-func TestMergeSort(t *testing.T) {
-	r1 := inversions.MergeSort(ex1)
-	r2 := inversions.MergeSort(ex2)
+	ex1 := readFile("../../../data/IntegerArray.txt")
+	count := 0
+	inversions.MergeSort(ex1, &count)
 
-	fail := false
-	data := [][]int{r1, r2}
-	for _, ex := range data {
-		for i := 1; i < len(ex); i++ {
-			if ex[i-1] > ex[i] {
-				fail = true
-				break
-			}
-		}
-		if fail {
-			t.Errorf("Fail: %q", "Bitches!")
-			break
-		}
+	if count != 2407905288 {
+		t.Error("Fail: %q", count)
 	}
+}
 
-	fmt.Println("IN1: ", ex1)
-	fmt.Println("IN2: ", ex2)
-	fmt.Println("R1: ", r1)
-	fmt.Println("R2: ", r2)
-
+func readFile(filename string) []int {
+	dat, err := ioutil.ReadFile(filename)
+	check(err)
+	strarr := strings.Fields(string(dat))
+	data := stringsToInts(strarr)
+	return data
 }
 
 func stringsToInts(strarr []string) []int {
@@ -58,29 +46,3 @@ func check(e error) {
 		panic(e)
 	}
 }
-
-func fileIo() {
-
-	dat, err := ioutil.ReadFile("test.txt")
-	check(err)
-	strarr := strings.Fields(string(dat))
-	data := stringsToInts(strarr)
-	for i, d := range data {
-		fmt.Printf("Integer %d : %d\n", i, d)
-	}
-
-}
-
-//func ReadInts(r io.Reader) ([]int, error) {
-//	scanner := bufio.NewScanner(r)
-//	scanner.Split(bufio.ScanWords)
-//	var result []int
-//	for scanner.Scan() {
-//		x, err := strconv.Atoi(scanner.Text())
-//		if err != nil {
-//			return result, err
-//		}
-//		result = append(result, x)
-//	}
-//	return result, scanner.Err()
-//}

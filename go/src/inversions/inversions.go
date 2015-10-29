@@ -4,18 +4,18 @@ import (
 	"math"
 )
 
-func MergeSort(data []int) []int {
+func MergeSort(data []int, count *int) []int {
 	n := len(data)
 	if n < 2 {
 		return data
 	}
 	mid := getMedian(n)
-	left := MergeSort(data[:mid])
-	right := MergeSort(data[mid:])
-	return merge(left, right)
+	left := MergeSort(data[:mid], count)
+	right := MergeSort(data[mid:], count)
+	return merge(left, right, count)
 }
 
-func merge(left, right []int) []int {
+func merge(left, right []int, count *int) []int {
 	n := len(left) + len(right)
 	result := make([]int, n)
 	i, j, k := 0, 0, 0
@@ -25,6 +25,7 @@ func merge(left, right []int) []int {
 			i++
 		} else {
 			result[k] = right[j]
+			*count += len(left[i:])
 			j++
 		}
 		k++
