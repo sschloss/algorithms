@@ -1,3 +1,6 @@
+/*
+	Counting inversions
+*/
 package inversions
 
 import (
@@ -12,9 +15,7 @@ import (
 func TestCountInversions(t *testing.T) {
 
 	ex1 := readFile("../../../data/IntegerArray.txt")
-	count := 0
-	inversions.MergeSort(ex1, &count)
-
+	count := inversions.CountInversions(ex1)
 	if count != 2407905288 {
 		t.Error("Fail: %q", count)
 	}

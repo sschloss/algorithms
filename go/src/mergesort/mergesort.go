@@ -1,30 +1,24 @@
 /*
-	Counting inversions
+	mergesort
 */
-package inversions
+package mergesort
 
 import (
 	"math"
 )
 
-func CountInversions(data []int) int {
-	count := 0
-	mergeSort(data, &count)
-	return count
-}
-
-func mergeSort(data []int, count *int) []int {
+func Sort(data []int) []int {
 	n := len(data)
 	if n < 2 {
 		return data
 	}
 	mid := getMedian(n)
-	left := mergeSort(data[:mid], count)
-	right := mergeSort(data[mid:], count)
-	return merge(left, right, count)
+	left := Sort(data[:mid])
+	right := Sort(data[mid:])
+	return merge(left, right)
 }
 
-func merge(left, right []int, count *int) []int {
+func merge(left, right []int) []int {
 	n := len(left) + len(right)
 	result := make([]int, n)
 	i, j, k := 0, 0, 0
@@ -34,7 +28,6 @@ func merge(left, right []int, count *int) []int {
 			i++
 		} else {
 			result[k] = right[j]
-			*count += len(left[i:])
 			j++
 		}
 		k++
