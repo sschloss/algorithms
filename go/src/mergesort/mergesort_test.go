@@ -28,7 +28,7 @@ func TestSort(t *testing.T) {
 			}
 		}
 		if fail {
-			t.Errorf("Fail: %q", "Bitches!")
+			t.Error("Fail: Error: Not sorted")
 			break
 		}
 	}
