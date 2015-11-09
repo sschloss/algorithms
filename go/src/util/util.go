@@ -3,9 +3,34 @@ package util
 import (
 	"fmt"
 	"io/ioutil"
+	"regexp"
 	"strconv"
 	"strings"
 )
+
+func ReadTable(filename string) [][]int {
+	dat, err := ioutil.ReadFile(filename)
+	check(err)
+	lines := regexp.MustCompile(`\n+`).Split(string(dat), -1)
+	// strings.Split appends an extra line so remove it
+	nLines := len(lines) - 1
+	t := make([][]int, nLines)
+	for i := 0; i < nLines; i++ {
+		tokens := regexp.MustCompile(`\s+`).Split(lines[i], -1)
+		nTokens := len(tokens) - 1
+		t[i] = make([]int, nTokens)
+		for j := 0; j < nTokens; j++ {
+			token := strings.TrimSpace(tokens[j])
+			val, err := strconv.Atoi(token)
+			if err != nil {
+				fmt.Println("Format error")
+				continue
+			}
+			t[i][j] = val
+		}
+	}
+	return t
+}
 
 func ReadInts(filename string) []int {
 	dat, err := ioutil.ReadFile(filename)
