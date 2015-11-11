@@ -8,7 +8,26 @@ import (
 	"strings"
 )
 
-func ReadTable(filename string) [][]int {
+func ReadTable(filename string) [][]string {
+	dat, err := ioutil.ReadFile(filename)
+	check(err)
+	lines := regexp.MustCompile(`\n+`).Split(string(dat), -1)
+	// strings.Split appends an extra line so remove it
+	nLines := len(lines) - 1
+	t := make([][]string, nLines)
+	for i := 0; i < nLines; i++ {
+		line := strings.TrimSpace(lines[i])
+		tokens := regexp.MustCompile(`\s+`).Split(line, -1)
+		nTokens := len(tokens)
+		t[i] = make([]string, nTokens)
+		for j := 0; j < nTokens; j++ {
+			t[i][j] = strings.TrimSpace(tokens[j])
+		}
+	}
+	return t
+}
+
+func ReadIntsTable(filename string) [][]int {
 	dat, err := ioutil.ReadFile(filename)
 	check(err)
 	lines := regexp.MustCompile(`\n+`).Split(string(dat), -1)

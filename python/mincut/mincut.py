@@ -47,7 +47,7 @@ class Graph:
                 e = Edge(v1, self.V[v2].edges[j].v2)
                 self.V[v1].edges.append(e)
 
-        # update vertices to point to merged vertex
+        # update edges to point to merged vertex
         for k, v in self.V.iteritems():
             edges = []
             for j in range(len(self.V[k].edges)):
