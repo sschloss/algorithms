@@ -21,11 +21,11 @@ func TestMain(m *testing.M) {
 
 func TestSCC(tst *testing.T) {
 	fmt.Println("TestSCC")
-	filename := "../../../data/SCC.txt"
+	filename := "../../../data/SCC_test1.txt"
 	k := scc.NewKosaraju()
-	expected := []int{434821, 968, 459, 313, 211}
+	expected := []int{3, 3, 3}
 	result := k.TopSccs(filename)
-	if len(expected) < len(result) {
+	if len(expected) <= len(result) {
 		for i := 0; i < len(expected); i++ {
 			msg := fmt.Sprintf("Expected %d\nGot %d\n", expected[i], result[i])
 			assert.Equal(tst, expected[i], result[i], msg)
