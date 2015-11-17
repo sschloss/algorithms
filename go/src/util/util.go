@@ -28,24 +28,16 @@ func ReadTable(filename string) [][]string {
 }
 
 func ReadIntsTable(filename string) [][]int {
-	dat, err := ioutil.ReadFile(filename)
-	check(err)
-	lines := regexp.MustCompile(`\n+`).Split(string(dat), -1)
-	// strings.Split appends an extra line so remove it
-	nLines := len(lines) - 1
-	t := make([][]int, nLines)
-	for i := 0; i < nLines; i++ {
-		tokens := regexp.MustCompile(`\s+`).Split(lines[i], -1)
-		nTokens := len(tokens) - 1
-		t[i] = make([]int, nTokens)
-		for j := 0; j < nTokens; j++ {
-			token := strings.TrimSpace(tokens[j])
-			val, err := strconv.Atoi(token)
+	st := ReadTable(filename)
+	t := make([][]int, len(st))
+	for i := 0; i < len(st); i++ {
+		t[i] = make([]int, len(st[i]))
+		for j := 0; j < len(st[i]); j++ {
+			d, err := strconv.Atoi(st[i][j])
 			if err != nil {
-				fmt.Println("Format error")
-				continue
+				panic(fmt.Sprintf("Error converting string to int: %v\n", err))
 			}
-			t[i][j] = val
+			t[i][j] = d
 		}
 	}
 	return t
